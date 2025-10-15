@@ -1,39 +1,64 @@
 # ⚡ Proyectos MicroPython en ESP32
 
-Este repositorio contiene una colección de proyectos sencillos para el microcontrolador **ESP32** utilizando el firmware **MicroPython**. El desarrollo se realiza utilizando **Visual Studio Code (VS Code)** y herramientas de línea de comandos para la carga del código.
+Este repositorio contiene una colección de proyectos sencillos para el microcontrolador ESP32 utilizando el firmware MicroPython. El desarrollo se realiza utilizando Visual Studio Code (VS Code) y herramientas de línea de comandos para la carga del código.
 
 ## 🛠️ Herramientas y Configuración Inicial
 
 Para comenzar a trabajar con el ESP32 y MicroPython, necesitas configurar tu entorno de desarrollo.
 
----
-
 ### 1. Requisitos de Hardware
 
-* Placa **ESP32** (cualquier modelo: DevKit, Wemos, etc.)
-* Cable USB adecuado para la placa.
-
----
+- Placa ESP32 (cualquier modelo: DevKit, Wemos, etc.)
+- Cable USB adecuado para la placa
 
 ### 2. Instalación de Herramientas de Software
 
 Instala las siguientes herramientas en tu PC:
 
 | Herramienta | Propósito | Instalación (Python) |
-| :--- | :--- | :--- |
-| **Python** | Lenguaje base para MicroPython y las herramientas. | [Descargar Python 3+](https://www.python.org/downloads/) |
-| **VS Code** | Editor de código principal. | [Descargar VS Code](https://code.visualstudio.com/) |
-| **PyMakr (Extensión VS Code)** | **Opcional, pero recomendado** para gestión de proyectos, carga y monitor serial. | Instalar desde la pestaña de Extensiones de VS Code. |
-| **`ampy`** | Herramienta de línea de comandos para subir archivos y ejecutar scripts. | `pip install adafruit-ampy` |
-| **`esptool`** | Utilidad para flashear el firmware de MicroPython. | `pip install esptool` |
+|-------------|-----------|---------------------|
+| Python | Lenguaje base para MicroPython y las herramientas | [Descargar Python 3+](https://www.python.org/downloads/) |
+| VS Code | Editor de código principal | [Descargar VS Code](https://code.visualstudio.com/) |
+| ampy | Herramienta de línea de comandos para subir archivos y ejecutar scripts | `pip install adafruit-ampy` |
+| esptool | Utilidad oficial de Espressif para flashear el firmware | `pip install esptool` |
 
----
+#### Origen e Instalación de esptool.py
 
-### 3. Flasheo de MicroPython en el ESP32
+`esptool.py` es la herramienta de línea de comandos oficial, de código abierto, desarrollada por Espressif Systems (los fabricantes del ESP32). Su propósito principal es interactuar a bajo nivel con el bootloader del chip para flashear (escribir) firmware (como MicroPython) y manipular la memoria flash.
+
+Se instala fácilmente a través del gestor de paquetes de Python, pip:
+
+```bash
+pip install esptool
+```
+
+### 3. Identificación del Puerto Serial (COM)
+
+Antes de usar ampy o esptool, debes saber a qué puerto serial se ha conectado tu ESP32.
+
+#### 🔎 En Windows
+
+1. Abre el **Administrador de Dispositivos** (presiona `Windows + X` y selecciónalo)
+2. Busca y expande la sección **Puertos (COM y LPT)**
+3. Conecta tu placa ESP32 y observa la nueva entrada que aparece (ej. `Silicon Labs CP210x... (COM5)`)
+4. El número entre paréntesis (ej. `COM5`) es el que usarás como `COMX` en tus comandos
+
+#### 💻 En Linux/macOS
+
+Ejecuta el siguiente comando en la terminal para listar los dispositivos:
+
+```bash
+ls /dev/tty.*
+# o
+ls /dev/ttyUSB*
+```
+
+### 4. Flasheo de MicroPython en el ESP32
 
 Antes de subir código, el ESP32 debe tener el firmware de MicroPython.
 
-1. **Descarga el firmware:** Obtén el archivo `.bin` para tu ESP32 desde el sitio oficial de MicroPython.
+1. **Descarga el firmware:** Obtén el archivo `.bin` para tu ESP32 desde el [sitio oficial de MicroPython](https://micropython.org/download/esp32/)
+
 2. **Flashea el firmware:** Utiliza `esptool.py` (reemplaza `COMX` por tu puerto y `firmware.bin` por tu archivo):
 
 ```bash
@@ -44,13 +69,11 @@ esptool.py --port COMX erase_flash
 esptool.py --port COMX --baud 460800 write_flash --flash_size=detect 0 firmware.bin
 ```
 
----
-
-## 💻 Carga y Ejecución de Código con `ampy`
+## 💻 Carga y Ejecución de Código con ampy
 
 Una vez que MicroPython está instalado, usa `ampy` para interactuar con el dispositivo.
 
-**NOTA:** Reemplaza **`COMX`** por el puerto serial de tu ESP32 (ej. `COM6` en Windows, `/dev/ttyUSB0` en Linux/macOS).
+> **NOTA:** Reemplaza `COMX` por el puerto serial de tu ESP32 (ej. `COM5`).
 
 ### 1. Subir un Archivo (Persistente)
 
@@ -67,8 +90,6 @@ Para ejecutar un script directamente sin guardarlo en la flash:
 ```bash
 ampy -p COMX run tu_script.py
 ```
-
----
 
 ## 📂 Proyectos Desarrollados
 
@@ -100,8 +121,6 @@ while True:
     print("LED APAGADO")
     time.sleep(0.5)
 ```
-
----
 
 ### 2. Proyecto: Cliente Wi-Fi (Modo STA)
 
@@ -141,8 +160,6 @@ else:
     print("\nFallo al conectar. Verifique SSID y contrasenia.")
     wlan.active(False)
 ```
-
----
 
 ### 3. Proyecto: Punto de Acceso Wi-Fi (Modo AP)
 
@@ -190,24 +207,16 @@ while True:
     time.sleep(5)
 ```
 
----
-
 ## 📝 Notas Adicionales
 
-* Asegúrate de que el ESP32 esté correctamente conectado y que el driver USB esté instalado.
-* Verifica el puerto COM en el Administrador de Dispositivos (Windows) o con `ls /dev/tty*` (Linux/macOS).
-* Si tienes problemas de conexión, prueba reducir la velocidad de baudios a `115200`.
-
----
-
-## 🔗 Enlaces Útiles
-
-* [Documentación oficial de MicroPython](https://docs.micropython.org/)
-* [MicroPython para ESP32](https://micropython.org/download/esp32/)
-* [Repositorio de esptool](https://github.com/espressif/esptool)
-
----
+- Asegúrate de que el ESP32 esté correctamente conectado y que el driver USB esté instalado
+- Cierra cualquier programa de terminal serial (como Thonny o PuTTY) antes de usar `ampy`, ya que bloquean el puerto COM
+- Si tienes problemas de conexión, prueba reducir la velocidad de baudios a 115200
 
 ## 📄 Licencia
 
-Este proyecto es de código abierto y está disponible bajo la licencia MIT.
+Este proyecto está disponible para uso educativo y de aprendizaje.
+
+## 🤝 Contribuciones
+
+Las contribuciones son bienvenidas. Por favor, abre un issue o pull request para sugerencias y mejoras.
