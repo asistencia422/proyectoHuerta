@@ -22,6 +22,11 @@ Instala las siguientes herramientas en tu PC:
 | ampy | Herramienta de línea de comandos para subir archivos y ejecutar scripts | `pip install adafruit-ampy` |
 | esptool | Utilidad oficial de Espressif para flashear el firmware | `pip install esptool` |
 
+#### 📹 Videos Tutoriales
+
+- **Instalar Python y ampy:** [Ver tutorial en YouTube](https://www.youtube.com/watch?v=01SMgraNqUM&list=PL-Hb9zZP9qC6MBRJEdyIqE_rZbZOzxIpK&index=10)
+- **Uso de ampy:** [Ver tutorial en YouTube](https://www.youtube.com/watch?v=y3uBKBWvh7Y&list=PL-Hb9zZP9qC6MBRJEdyIqE_rZbZOzxIpK&index=11)
+
 #### Origen e Instalación de esptool.py
 
 `esptool.py` es la herramienta de línea de comandos oficial, de código abierto, desarrollada por Espressif Systems (los fabricantes del ESP32). Su propósito principal es interactuar a bajo nivel con el bootloader del chip para flashear (escribir) firmware (como MicroPython) y manipular la memoria flash.
@@ -97,10 +102,10 @@ ampy -p COMX run tu_script.py
 
 El programa fundamental para verificar que el código se ejecuta. Utiliza el pin GPIO 2 (común para el LED integrado).
 
-**Archivo sugerido:** `encederLed.py`
+**Archivo sugerido:** `main.py`
 
 ```python
-# encederLed.py
+# main.py
 from machine import Pin
 import time
 
@@ -126,10 +131,10 @@ while True:
 
 Conecta el ESP32 a una red Wi-Fi existente (Modo Station/Cliente).
 
-**Archivo sugerido:** `wifi_conectar.py`
+**Archivo sugerido:** `wifi_sta.py`
 
 ```python
-# wifi_conectar.py
+# wifi_sta.py
 from machine import Pin
 import network
 import time
