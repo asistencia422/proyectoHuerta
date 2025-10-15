@@ -1,6 +1,6 @@
 # ⚡ Proyectos MicroPython en ESP32
 
-Este repositorio contiene una colección de proyectos sencillos para el microcontrolador ESP32 utilizando el firmware MicroPython. El desarrollo se realiza utilizando Visual Studio Code (VS Code) y herramientas de línea de comandos para la carga del código.
+Este documento contiene una colección de proyectos sencillos para el microcontrolador ESP32 utilizando el firmware MicroPython. El desarrollo se realiza utilizando Visual Studio Code (VS Code) y herramientas de línea de comandos para la carga del código.
 
 ## 🛠️ Herramientas y Configuración Inicial
 
