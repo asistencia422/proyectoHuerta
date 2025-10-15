@@ -97,10 +97,10 @@ ampy -p COMX run tu_script.py
 
 El programa fundamental para verificar que el código se ejecuta. Utiliza el pin GPIO 2 (común para el LED integrado).
 
-**Archivo sugerido:** `main.py`
+**Archivo sugerido:** `encederLed.py`
 
 ```python
-# main.py
+# encederLed.py
 from machine import Pin
 import time
 
@@ -126,10 +126,10 @@ while True:
 
 Conecta el ESP32 a una red Wi-Fi existente (Modo Station/Cliente).
 
-**Archivo sugerido:** `wifi_sta.py`
+**Archivo sugerido:** `wifi_conectar.py`
 
 ```python
-# wifi_sta.py
+# wifi_conectar.py
 from machine import Pin
 import network
 import time
